@@ -1,0 +1,112 @@
+<!DOCTYPE CrossStudio_Project_File>
+<solution Name="tinsy-sam-jiggler" target="8" version="2">
+  <project Name="tinsy-sam-jiggler">
+    <configuration
+      Name="Common"
+      Target="SAM4S2A"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M4"
+      arm_fpu_type="FPv4-SP-D16"
+      arm_linker_heap_size="16384"
+      arm_linker_process_stack_size="0"
+      arm_linker_stack_size="512"
+      arm_simulator_memory_simulation_filename="$(TargetsDir)/SAM/SAMSimulatorMemory.dll"
+      arm_simulator_memory_simulation_parameter="SAM4S;0x20000;0x0;0x10000;0x0000;0;0;0;0"
+      arm_target_debug_interface_type="ADIv5"
+      c_only_additional_options="-Wall;-Wextra;-Wstrict-prototypes;-Wmissing-prototypes;-Wmissing-declarations;-Wshadow;-Wpointer-arith;-Wbad-function-cast;-Wcast-align;-Wcast-qual;-Wjump-misses-init;-Wno-unused-parameter;-Wno-cast-align;-Wundef"
+      c_system_include_directories="$(ProjectDir)/../freertos/src/inc"
+      c_user_include_directories="$(ProjectDir)/../ucdrv/inc;$(ProjectDir)/../inc;$(ProjectDir)/../ucdrv/src;$(ProjectDir)/../cmdln/src;$(ProjectDir)/../sys/src;$(ProjectDir)/../usb-jiggler/src;$(ProjectDir)/../usb-std/src;$(ProjectDir)/../usb-dp/src"
+      link_include_startup_code="No"
+      linker_memory_map_file="$(TargetsDir)/SAM/SAM4S2A_MemoryMap.xml"
+      linker_printf_fmt_level="long long"
+      linker_scanf_fmt_level="long"
+      macros="SAM_Series=sam4s"
+      package_dependencies="SAM"
+      project_dependencies="freertos-cm3(freertos-cm3);sys(sys);ucdrv(ucdrv);cmdln(cmdln);usb-dp(usb-dp);usb-jiggler(usb-jiggler);usb-std(usb-std)"
+      project_directory=""
+      project_type="Executable"
+      property_groups_file_path="$(TargetsDir)/SAM/propertyGroups.xml"
+      target_get_partname_script="GetPartName()"
+      target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
+      target_reset_script="SAM4S_Reset()" />
+    <configuration
+      Name="Flash"
+      Placement="Flash"
+      arm_target_flash_loader_file_path="$(TargetsDir)/SAM/Release/Loader_$(SAM_Series).elf"
+      arm_target_flash_loader_type="LIBMEM RPC Loader"
+      linker_section_placement_file="$(TargetsDir)/SAM/flash_placement.xml" />
+    <folder Name="src">
+      <file Name="appver.h" file_name="src/appver.h" />
+      <file Name="main_tinsy.c" file_name="src/main_tinsy.c" />
+      <file Name="main.h" file_name="src/main.h" />
+      <file Name="tm.c" file_name="src/tm.c" />
+      <file Name="tm.h" file_name="src/tm.h" />
+      <file Name="jiggler.c" file_name="src/jiggler.c" />
+      <file Name="jiggler.h" file_name="src/jiggler.h" />
+      <file Name="pincfg_tinsy.c" file_name="src/pincfg_tinsy.c" />
+      <file Name="pincfg.h" file_name="src/pincfg.h" />
+    </folder>
+    <folder Name="System Files">
+      <file file_name="src/thumb_crt0.s" />
+      <file file_name="src/sam4s_startup.s" />
+      <file file_name="$(TargetsDir)/SAM/SAM_Target.js">
+        <configuration Name="Common" file_type="Reset Script" />
+      </file>
+      <configuration
+        Name="Release"
+        c_preprocessor_definitions="STARTUP_FROM_RESET" />
+      <configuration
+        Name="Common"
+        c_preprocessor_definitions="NO_WATCHDOG_DISABLE;INITIALIZE_STACK;NO_SYSTEM_INIT" />
+    </folder>
+  </project>
+  <configuration
+    Name="THUMB"
+    Platform="ARM"
+    arm_instruction_set="THUMB"
+    arm_library_instruction_set="THUMB"
+    c_preprocessor_definitions="__THUMB"
+    hidden="Yes" />
+  <configuration
+    Name="Debug"
+    build_debug_information="Yes"
+    c_preprocessor_definitions="DEBUG"
+    gcc_debugging_level="Level 2"
+    gcc_optimization_level="None"
+    hidden="Yes" />
+  <configuration
+    Name="Release"
+    build_debug_information="No"
+    c_preprocessor_definitions="NDEBUG"
+    gcc_debugging_level="Level 1"
+    gcc_optimization_level="Level 2"
+    hidden="Yes" />
+  <configuration
+    Name="Flash Debug"
+    inherited_configurations="THUMB;Flash;Debug" />
+  <configuration
+    Name="Flash"
+    c_preprocessor_definitions="__FLASH_BUILD"
+    hidden="Yes" />
+  <configuration
+    Name="Flash Release"
+    inherited_configurations="THUMB;Flash;Release" />
+  <configuration
+    Name="Common"
+    arm_architecture="v7EM"
+    arm_core_type="Cortex-M4"
+    arm_fpu_type="None"
+    arm_gcc_target="arm-unknown-eabi"
+    arm_interwork="No"
+    c_enforce_ansi_checking="No"
+    c_only_additional_options="-std=gnu99;-Wno-expansion-to-defined"
+    c_preprocessor_definitions="TINSY_SAM_BOARD;MCU_AT91SAM4S2A;DONT_USE_CMSIS_INIT"
+    c_system_include_directories="$(StudioDir)/include;$(PackagesDir)/include;$(TargetsDir)/CMSIS_3/CMSIS/Include" />
+  <import file_name="../freertos/freertos-cm3.hzp" />
+  <import file_name="../sys/sys.hzp" />
+  <import file_name="../ucdrv/ucdrv.hzp" />
+  <import file_name="../cmdln/cmdln.hzp" />
+  <import file_name="../usb-dp/usb-dp.hzp" />
+  <import file_name="../usb-jiggler/usb-jiggler.hzp" />
+  <import file_name="../usb-std/usb-std.hzp" />
+</solution>
