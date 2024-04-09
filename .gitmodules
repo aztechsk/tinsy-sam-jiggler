@@ -1,0 +1,21 @@
+[submodule "freertos"]
+	path = freertos
+	url = https://github.com/aztechsk/freertos-sam-cm3-cm4
+[submodule "cmdln"]
+	path = cmdln
+	url = https://github.com/aztechsk/cmdln
+[submodule "sys"]
+	path = sys
+	url = https://github.com/aztechsk/sys-tools
+[submodule "ucdrv"]
+	path = ucdrv
+	url = https://github.com/aztechsk/sam-lib
+[submodule "usb-dp"]
+	path = usb-dp
+	url = https://github.com/aztechsk/sam-udp
+[submodule "usb-jiggler"]
+	path = usb-jiggler
+	url = https://github.com/aztechsk/usb-jiggler
+[submodule "usb-std"]
+	path = usb-std
+	url = https://github.com/aztechsk/usb-std
