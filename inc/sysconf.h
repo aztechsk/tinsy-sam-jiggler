@@ -23,7 +23,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // RSTC
-#define RSTC_EXT_RESET_LENGTH 1
+#define RSTC_EXT_RESET_LENGTH 0
 
 ////////////////////////////////////////////////////////////////////////////////
 // EEFC
@@ -90,7 +90,7 @@
 #define USB_JIG_IN_K_ENDP_POLLED_MS 0x0A
 #define UDP_EVNT_QUE_SIZE 20
 #define UDP_LOG_INTR_EVENTS 0
-#define UDP_LOG_STATE_EVENTS 0
+#define UDP_LOG_STATE_EVENTS 1
 #define UDP_LOG_ENDP_EVENTS 0
 #define UDP_LOG_OUT_IRP_EVENTS 0
 #define UDP_LOG_OUT_IRP_EVENTS_ALL 1

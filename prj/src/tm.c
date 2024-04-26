@@ -2,7 +2,7 @@
  * tm.c
  *
  * Autors: Jan Rusnak.
- * (c) 2023 AZTech.
+ * (c) 2024 AZTech.
  */
 
 #include <FreeRTOS.h>
@@ -15,11 +15,13 @@
 #include <mmio.h>
 #include "msgconf.h"
 #include "criterr.h"
+#include "cmdln.h"
 #include "ledui.h"
 #include "wd.h"
 #include "udp.h"
 #include "jiggler.h"
 #include "sleep.h"
+#include "main.h"
 #include "tm.h"
 
 static TaskHandle_t tsk_hndl;
@@ -27,9 +29,11 @@ static const char *tsk_nm = "TM";
 static int uptm;
 static void (*clbk_arr[TIME_BASE_CLBK_ARRAY_SIZE])(unsigned int);
 static volatile boolean_t sleep_req;
+static boolean_t diswd;
 
 static void tm_tsk(void *p);
 static void sleep_clbk(enum sleep_cmd cmd, ...);
+static void cmd_diswd(void);
 
 /**
  * init_tm
@@ -40,6 +44,7 @@ void init_tm(void)
                                   TM_TASK_PRIO, &tsk_hndl)) {
                 crit_err_exit(MALLOC_ERROR);
         }
+	add_command_noargs("diswd", cmd_diswd);
 	reg_sleep_clbk(sleep_clbk, SLEEP_PRIO_SUSP_FIRST);
 }
 
@@ -76,7 +81,9 @@ static void tm_tsk(void *p)
                         xLastWakeTime = xTaskGetTickCount();
 			continue;
 		}
-		wd_rst();
+		if (!diswd) {
+			wd_rst();
+		}
 		if (!--cnt) {
 			cnt = 1000 / TIME_BASE_MS;
 			uptm++;
@@ -130,4 +137,13 @@ static void sleep_clbk(enum sleep_cmd cmd, ...)
 	} else {
 		vTaskResume(tsk_hndl);
 	}
+}
+
+/**
+ * cmd_diswd
+ */
+static void cmd_diswd(void)
+{
+	msg(INF, cmd_accp);
+	diswd = TRUE;
 }

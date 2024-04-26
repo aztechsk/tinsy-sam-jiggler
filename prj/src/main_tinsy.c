@@ -54,6 +54,7 @@ static void cmd_stu(void);
 static void cmd_tost(void);
 static void cmd_cre(int e);
 static void led_ctl_cmd(int led_id, const char *cmd);
+static void rgb_ctl_cmd(int led_id, const char *cmd);
 static void cmd_udps(void);
 static void cmd_pc(void);
 static void cmd_pd(void);
@@ -93,6 +94,14 @@ int main(void)
 #endif
 #endif
 	pincfg(PINCFG_INIT);
+	conf_io_pin(PWR_ON_IO_PIN, PWR_ON_IO_CONT, PIO_OUTPUT,
+	            PIO_PULL_UP_OFF, PIO_DRIVE_HIGH, PIO_END_OF_FEAT);
+	conf_io_pin(RGB_R_IO_PIN, RGB_R_IO_CONT, PIO_OUTPUT,
+	            PIO_PULL_UP_OFF, PIO_DRIVE_HIGH, PIO_END_OF_FEAT);
+	conf_io_pin(RGB_G_IO_PIN, RGB_G_IO_CONT, PIO_OUTPUT,
+	            PIO_PULL_UP_OFF, PIO_DRIVE_HIGH, PIO_END_OF_FEAT);
+	conf_io_pin(RGB_B_IO_PIN, RGB_B_IO_CONT, PIO_OUTPUT,
+	            PIO_PULL_UP_OFF, PIO_DRIVE_HIGH, PIO_END_OF_FEAT);
         init_ledui_pins();
 	{
 		usart u;
@@ -143,6 +152,7 @@ int main(void)
         add_command_int("cre", cmd_cre);
         add_command_noargs("hlp", cmdln_hlp);
 	add_command_int_string("led", led_ctl_cmd);
+	add_command_int_string("rgb", rgb_ctl_cmd);
 	add_command_noargs("udps", cmd_udps);
         add_command_noargs("pc", cmd_pc);
         add_command_noargs("pd", cmd_pd);
@@ -337,6 +347,46 @@ static void led_ctl_cmd(int led_id, const char *cmd)
 		set_ledui_led_state(ld, LEDUI_LED_BLINK_FAST_STDF, LEDUI_BLINK_START_ON);
 	} else {
 		msg(INF, "error: bad cmd\n");
+	}
+}
+
+/**
+ * rgb_ctl_cmd
+ */
+static void rgb_ctl_cmd(int led_id, const char *cmd)
+{
+	msg(INF, cmd_accp);
+	switch (led_id) {
+	case 1  :
+		if (0 == strcmp(cmd, "on")) {
+			set_pin_lev(RGB_R_IO_PIN, RGB_R_IO_CONT, LOW);
+		} else if (0 == strcmp(cmd, "off")) {
+			set_pin_lev(RGB_R_IO_PIN, RGB_R_IO_CONT, HIGH);
+		} else {
+			msg(INF, "error: bad cmd\n");
+		}
+		break;
+	case 2  :
+		if (0 == strcmp(cmd, "on")) {
+			set_pin_lev(RGB_G_IO_PIN, RGB_G_IO_CONT, LOW);
+		} else if (0 == strcmp(cmd, "off")) {
+			set_pin_lev(RGB_G_IO_PIN, RGB_G_IO_CONT, HIGH);
+		} else {
+			msg(INF, "error: bad cmd\n");
+		}
+		break;
+	case 3  :
+		if (0 == strcmp(cmd, "on")) {
+			set_pin_lev(RGB_B_IO_PIN, RGB_B_IO_CONT, LOW);
+		} else if (0 == strcmp(cmd, "off")) {
+			set_pin_lev(RGB_B_IO_PIN, RGB_B_IO_CONT, HIGH);
+		} else {
+			msg(INF, "error: bad cmd\n");
+		}
+		break;
+	default :
+		msg(INF, "error: bad led id\n");
+		return;
 	}
 }
 
