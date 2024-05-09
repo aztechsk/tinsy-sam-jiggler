@@ -154,6 +154,7 @@
 #define BTN1_TASK_STACK_SIZE (configMINIMAL_STACK_SIZE)
 #define BTN1_CHECK_DELAY 5
 #define BTN1_CHECK_DELAY_CNT 60
+#define BTN1_CONF_PULL_RES 1
 
 ////////////////////////////////////////////////////////////////////////////////
 // CRITERR

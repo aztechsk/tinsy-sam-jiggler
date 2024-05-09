@@ -123,6 +123,7 @@ static struct btn1_dsc jigbtn = {
 	.cont = JIGBTN_CONT,
 	.mode = BTN_REPORT_MODE,
         .active_lev = LOW,
+	.pull_res = FALSE,
         .evnt_que_size = JIGBTN_EVNT_QUE_SIZE,
         .tsk_nm = "JIGBTN",
 };
