@@ -96,7 +96,7 @@
       <file file_name="src/thumb_crt0.s" />
     </folder>
     <folder Name="src">
-      <file Name="appver.h" file_name="src/appver.h" />
+      <file Name="appver_tinsy.h" file_name="src/appver_tinsy.h" />
       <file Name="jiggler.c" file_name="src/jiggler.c" />
       <file Name="jiggler.h" file_name="src/jiggler.h" />
       <file Name="main.h" file_name="src/main.h" />
