@@ -319,16 +319,16 @@ static void led_ctl_cmd(int led_id, const char *cmd)
 
 	msg(INF, cmd_accp);
 	switch (led_id) {
-	case 1  :
+	case 1 :
 		ld = LEDUI1;
 		break;
-	case 2  :
+	case 2 :
 		ld = LEDUI2;
 		break;
-	case 3  :
+	case 3 :
 		ld = LEDUI3;
 		break;
-	case 4  :
+	case 4 :
 		ld = LEDUI4;
 		break;
 	default :
@@ -357,7 +357,7 @@ static void rgb_ctl_cmd(int led_id, const char *cmd)
 {
 	msg(INF, cmd_accp);
 	switch (led_id) {
-	case 1  :
+	case 1 :
 		if (0 == strcmp(cmd, "on")) {
 			set_pin_lev(RGB_R_IO_PIN, RGB_R_IO_CONT, LOW);
 		} else if (0 == strcmp(cmd, "off")) {
@@ -366,7 +366,7 @@ static void rgb_ctl_cmd(int led_id, const char *cmd)
 			msg(INF, "error: bad cmd\n");
 		}
 		break;
-	case 2  :
+	case 2 :
 		if (0 == strcmp(cmd, "on")) {
 			set_pin_lev(RGB_G_IO_PIN, RGB_G_IO_CONT, LOW);
 		} else if (0 == strcmp(cmd, "off")) {
@@ -375,7 +375,7 @@ static void rgb_ctl_cmd(int led_id, const char *cmd)
 			msg(INF, "error: bad cmd\n");
 		}
 		break;
-	case 3  :
+	case 3 :
 		if (0 == strcmp(cmd, "on")) {
 			set_pin_lev(RGB_B_IO_PIN, RGB_B_IO_CONT, LOW);
 		} else if (0 == strcmp(cmd, "off")) {

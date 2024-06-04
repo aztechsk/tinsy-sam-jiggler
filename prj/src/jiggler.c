@@ -2,7 +2,7 @@
  * jiggler.c
  *
  * Autors: Jan Rusnak.
- * (c) 2023 AZTech.
+ * (c) 2024 AZTech.
  */
 
 #include <FreeRTOS.h>
@@ -251,11 +251,11 @@ static gfp_t ctl_stm_dflt(void)
 	if (qs == udp_que) {
 		if (pdTRUE == xQueueReceive(udp_que, &us, 0)) {
 			switch (us) {
-			case UDP_STATE_DEFAULT    :
+			case UDP_STATE_DEFAULT :
 				return ((gfp_t) ctl_stm_dflt);
-			case UDP_STATE_ADDRESSED  :
+			case UDP_STATE_ADDRESSED :
 				return ((gfp_t) ctl_stm_adr);
-			case UDP_STATE_SUSPENDED  :
+			case UDP_STATE_SUSPENDED :
 				return ((gfp_t) ctl_stm_dflt_susp);
 			default :
 				crit_err_exit(UNEXP_PROG_STATE);
@@ -327,9 +327,9 @@ static gfp_t ctl_stm_adr(void)
 	if (qs == udp_que) {
 		if (pdTRUE == xQueueReceive(udp_que, &us, 0)) {
 			switch (us) {
-			case UDP_STATE_DEFAULT    :
+			case UDP_STATE_DEFAULT :
 				return ((gfp_t) ctl_stm_dflt);
-			case UDP_STATE_ADDRESSED  :
+			case UDP_STATE_ADDRESSED :
 				return ((gfp_t) ctl_stm_adr);
 			case UDP_STATE_CONFIGURED :
 				set_ledui_led_state(LEDUI4, LEDUI_LED_ON);
@@ -338,7 +338,7 @@ static gfp_t ctl_stm_adr(void)
 				vTaskResume(k_inrep_hndl);
 #endif
 				return ((gfp_t) ctl_stm_cnfg);
-			case UDP_STATE_SUSPENDED  :
+			case UDP_STATE_SUSPENDED :
 #if SLEEP_LOG_STATE == 1
 				msg(INF, "jiggler.c: CTL suspended\n");
 #endif
