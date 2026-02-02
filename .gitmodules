@@ -19,3 +19,6 @@
 [submodule "usb-std"]
 	path = usb-std
 	url = https://github.com/aztechsk/usb-std
+[submodule "hal"]
+	path = hal
+	url = https://github.com/aztechsk/c-hal-headers
