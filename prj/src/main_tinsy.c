@@ -42,8 +42,6 @@
 #include "main.h"
 #include <string.h>
 
-const char *const cmd_accp = ">>\n";
-
 static void sleep_pin_cfg(boolean_t b);
 static void set_clocks_sleep(boolean_t b);
 static void conf_usart0_pins(boolean_t b);

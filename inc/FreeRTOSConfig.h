@@ -80,4 +80,6 @@
 #define TASK_PRIO_HIGH 4
 #define TASK_PRIO_LOW 1
 
+#define ms_to_os_ticks(xTimeInMs) ((TickType_t) ((((unsigned int) (xTimeInMs) * configTICK_RATE_HZ) + 999U) / 1000U))
+
 #endif
